@@ -4,8 +4,8 @@ This is the status recorded during the domain migration. It distinguishes comple
 
 | Endpoint | Verified status |
 |---|---|
-| `arena.skylarenns.com` | Vercel custom-domain binding/alias absent. DNS/backend retirement is not confirmed by this record; do not assume the underlying service is stopped. No replacement hostname. |
-| `arenaapi.skylarenns.com` | Vercel custom-domain binding/alias absent. DNS/backend retirement is not confirmed by this record; do not assume the underlying service is stopped. No replacement hostname. |
+| `arena.skylarenns.com` | DNS record removed and Vercel custom-domain binding/alias absent. Dedicated backend shutdown is not established by those operations; preserve any retained shared service. No replacement hostname. |
+| `arenaapi.skylarenns.com` | DNS record removed and Vercel custom-domain binding/alias absent. Dedicated backend shutdown is not established by those operations; preserve any retained shared service. No replacement hostname. |
 
 ## Documentation and deployment examples
 
@@ -18,3 +18,5 @@ No repository, database, recording, volume or configuration was deleted by this 
 ## Evidence and rollback
 
 The operator migration bundle contains `migration/retirement-results.md`, `migration/cloudflare/retired-dns-ledger.ndjson`, and `migration/vercel-retirement-ledger.json`. These are operational evidence paths, not files claimed to exist in this repository. Dedicated service/container originals and rollback commands are recorded separately in `migration/retirement-execution.json` and `migration/retirement-containers-execution.json`; DNS and Vercel snapshots remain separate. Restore only the exact intended service and dependency state during a deliberate rollback.
+
+Later verified update (2026-11-06): retirement DNS cleanup now covers 66 explicitly retired hostnames. This does not broaden dedicated-service shutdown claims; the migration operator preserves shared processes and state. The core canonical platform deployment was rolled back, so new API source references must not be treated as completed production cutover.
